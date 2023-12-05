@@ -34,6 +34,7 @@ class LibctruConan(ConanFile):
 
     def build(self):
         with chdir(self, os.path.join(self.source_folder, self._source_subfolder)):
+            print(os.getcwd())
             autotools = Autotools(self)
             autotools.make()
 
