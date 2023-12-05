@@ -6,7 +6,6 @@ import os
 
 class Conan(ConanFile):
     name = 'citro3d'
-    version = '1.5.0'
     settings = 'compiler', 'build_type'
     description = 'Homebrew PICA200 GPU wrapper library for Nintendo 3DS'
     url = 'https://github.com/fincs/citro3d'

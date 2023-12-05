@@ -30,7 +30,8 @@ class Conan(ConanFile):
         else:
             #self.requires("libctru/1.2.1")
             self.requires("libctru/1.5.1")
-            self.requires("citro3d/1.5.0")
+            self.requires("citro3d/1.4.0") # 20170714 requires <= 1.4.0
+            #self.requires("citro3d/1.5.0")
 
     def build_requirements(self):
         # TODO: Old versions only
