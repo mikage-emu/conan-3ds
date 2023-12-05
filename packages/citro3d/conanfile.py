@@ -10,7 +10,9 @@ class Conan(ConanFile):
     description = 'Homebrew PICA200 GPU wrapper library for Nintendo 3DS'
     url = 'https://github.com/fincs/citro3d'
 
-    requires = 'libctru/1.5.1'
+    def requirements(self):
+        self.requires("libctru/[>=1.5.1]")
+
     exports_sources = 'add_missing_includes.patch'
 
     generators = "AutotoolsToolchain"

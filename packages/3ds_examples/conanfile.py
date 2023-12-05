@@ -35,6 +35,9 @@ class Conan(ConanFile):
             self.requires("citro2d/[>=1.0.0 <1.2.0]")
         elif int(self.version) <= 20190102:
             self.requires("citro2d/[>=1.1.0 <1.2.0]") # 20190102 requires 1.1.0 for ellipse rendering functions
+        elif int(self.version) <= 20200417:
+            self.requires("libctru/[>=1.6.0]") # 20200417 requires 1.6.0 for new Mii Selector definitions
+            self.requires("citro2d/[>=1.1.0 <1.2.0]")
         else:
             # TODO: Requires new devkitarm
             raise Exception("Recent 3ds-examples not supported yet")
