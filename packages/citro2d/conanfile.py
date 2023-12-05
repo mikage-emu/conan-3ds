@@ -21,11 +21,12 @@ class Conan(ConanFile):
     def requirements(self):
         ver = Version(self.version)
 
-        self.requires('citro3d/[>=1.4.0]')
-        self.requires('libctru/[>=1.5.1]')
-
-        if ver > Version("1.2.0"):
-            self.requires('libctru/[>=1.6.0]')
+        if ver <= Version("1.1.0"):
+            self.requires('citro3d/[>=1.4.0]')
+            self.requires('libctru/[<1.6.0]') # Upper bound due to changed font APIs
+        else:
+            self.requires('citro3d/[>=1.4.0]')
+            self.requires('libctru/[>=1.6.0]') # Required for new font APIs since 1.2.0
 
     def source(self):
         get(self, **self.conan_data["sources"][self.version])
