@@ -15,7 +15,7 @@ class Conan(ConanFile):
 
     # NOTE: devkitarm-rules requires dka_general_tools >= 1.3.0 at some point due to using generate_compile_commands
     #def requirements(self):
-    #    if int(self.version) >= TODO: # TODO: Version r53 (maybe already r50) require https://github.com/devkitPro/devkitarm-rules
+    #    if int(self.version) >= TODO: # TODO: Version r51 require https://github.com/devkitPro/devkitarm-rules
     #        self.requires('dka_general_tools/[>=1.3.0]')
 
     def build(self):
@@ -23,7 +23,7 @@ class Conan(ConanFile):
         if int(self.version) >= 48:
             rename(self, "opt/devkitpro/devkitARM", "devkitARM")
 
-        if int(self.version) >= 53: # TODO: Version r53 (maybe already r50) require https://github.com/devkitPro/devkitarm-rules
+        if int(self.version) >= 51: # TODO: Version r51 require https://github.com/devkitPro/devkitarm-rules
             git = Git(self, ".")
             git.clone("https://github.com/devkitPro/devkitarm-rules")
             with chdir(self, "devkitarm-rules"):
