@@ -11,9 +11,6 @@ class Conan(ConanFile):
     description = 'Examples for 3DS using devkitARM, libctru and citro3d'
     url = 'https://github.com/devkitpro/3ds-examples'
 
-    ## TODO: Add citro2d (citro2d/1.2.0@ctr/stable)
-    #build_requires = ["libctru/1.6.0@ctr/stable", "citro3d/1.5.0@ctr/stable", "3dstools/1.1.4@ctr/stable", "dka_general_tools/1.2.0@ctr/stable", "picasso/2.7.0@ctr/stable", "tex3ds/2.0.1@ctr/stable"]
-
     generators = ["AutotoolsToolchain"]
 
     # TODO: Make version-specific
@@ -29,19 +26,20 @@ class Conan(ConanFile):
     def requirements(self):
         if self.version == "20150818-2c57809":
             self.requires("libctru/0.6.0")
-        if int(self.version) <= 20170714:
-            self.requires("citro3d/[<=1.4.0]") # 20170714 requires <= 1.4.0 due to API deprecation
-        elif int(self.version) <= 20180513:
-            self.requires("citro2d/[>=1.0.0 <1.2.0]")
-        elif int(self.version) <= 20190102:
-            self.requires("citro2d/[>=1.1.0 <1.2.0]") # 20190102 requires 1.1.0 for ellipse rendering functions
-        elif int(self.version) <= 20200417:
-            self.requires("libctru/[>=1.6.0]") # 20200417 requires 1.6.0 for new Mii Selector definitions
-            self.requires("citro2d/[>=1.1.0 <1.2.0]")
-        else:
+        elif int(self.version) > 20200417:
             # TODO: Requires new devkitarm
             raise Exception("Recent 3ds-examples not supported yet")
-            #self.requires("libctru/2.2.1")
+        elif int(self.version) >= 20200417:
+            self.requires("libctru/[>=1.6.0]") # 20200417 requires 1.6.0 for new Mii Selector definitions
+            self.requires("citro2d/[>=1.1.0]")
+        elif int(self.version) >= 20190102:
+            self.requires("citro2d/[>=1.1.0 <1.2.0]") # 20190102 requires 1.1.0 for ellipse rendering functions
+        elif int(self.version) >= 20180513:
+            self.requires("citro2d/[>=1.0.0 <1.2.0]") # New dependency since 20180513
+        elif int(self.version) >= 20170714:
+            self.requires("citro3d/[<=1.4.0]") # 20170714 requires <= 1.4.0 due to API deprecation
+        else:
+            raise Exception("Unrecognized 3ds-examples version")
 
     def build_requirements(self):
         # TODO: Old versions only

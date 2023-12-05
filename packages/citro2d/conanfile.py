@@ -34,12 +34,18 @@ class Conan(ConanFile):
 
     def build(self):
         cmake = CMake(self)
-        cmake.configure()
+        vars = {}
+        if Version(self.version) >= Version('1.2.0'):
+            vars={'CITRO2D_NEWER_THAN_120':"ON"}
+        cmake.configure(variables=vars)
         cmake.build()
 
     def package(self):
         cmake = CMake(self)
-        cmake.configure()
+        vars = {}
+        if Version(self.version) >= Version('1.2.0'):
+            vars={'CITRO2D_NEWER_THAN_120':"ON"}
+        cmake.configure(variables=vars)
         cmake.install()
         copy(self, "*.h", os.path.join(self.source_folder, self._source_subfolder, "include"), os.path.join(self.package_folder, "include"))
 

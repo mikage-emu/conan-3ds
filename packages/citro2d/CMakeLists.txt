@@ -9,9 +9,12 @@ set(SOURCE_SUBFOLDER ${CMAKE_CURRENT_SOURCE_DIR}/source_subfolder/source)
 
 add_library(citro2d
     "${SOURCE_SUBFOLDER}/base.c"
-#    "${SOURCE_SUBFOLDER}/font.c" # TODO: Only 1.2.0 and upwards
     "${SOURCE_SUBFOLDER}/spritesheet.c"
     "${SOURCE_SUBFOLDER}/text.c")
+if (CITRO2D_NEWER_THAN_120)
+    target_sources(citro2d PRIVATE "${SOURCE_SUBFOLDER}/font.c")
+endif()
+
 target_include_directories(citro2d PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/source_subfolder/include)
 #target_link_libraries(citro2d PRIVATE ${CONAN_TARGETS})
 target_link_libraries(citro2d PRIVATE citro3d::citro3d)
