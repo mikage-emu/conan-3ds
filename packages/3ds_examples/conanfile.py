@@ -1,5 +1,5 @@
 from conan import ConanFile, tools
-from conan.tools.files import chdir, collect_libs, copy, get, replace_in_file
+from conan.tools.files import chdir, collect_libs, copy, get, patch, replace_in_file
 from conan.tools.gnu import Autotools, AutotoolsDeps
 
 import os
@@ -19,6 +19,8 @@ class Conan(ConanFile):
     # TODO: Make version-specific
     tool_requires = ["dka_general_tools/1.2.0", "picasso/2.7.0"]
 
+    exports_sources = ['45758185_fix_parallel_building.patch']
+
     def generate(self):
         tc = AutotoolsDeps(self)
         tc.environment.append("LDFLAGS_CONAN", tc.environment.vars(self)["LDFLAGS"])
@@ -28,13 +30,11 @@ class Conan(ConanFile):
         if self.version == "20150818-2c57809":
             self.requires("libctru/0.6.0")
         if int(self.version) <= 20170714:
-            self.requires("citro3d/[<=1.4.0]") # 20170714 requires <= 1.4.0
+            self.requires("citro3d/[<=1.4.0]") # 20170714 requires <= 1.4.0 due to API deprecation
         elif int(self.version) <= 20180513:
-            self.requires("citro3d/[<=1.4.0]") # 20170714 requires <= 1.4.0
             self.requires("citro2d/[>=1.0.0 <1.2.0]")
-        #elif int(self.version) <= 20190714:
-        #    self.requires("libctru/1.5.1")
-        #    self.requires("citro3d/[>1.4.0]") # 20170714 requires <= 1.4.0
+        elif int(self.version) <= 20190102:
+            self.requires("citro2d/[>=1.1.0 <1.2.0]") # 20190102 requires 1.1.0 for ellipse rendering functions
         else:
             # TODO: Requires new devkitarm
             raise Exception("Recent 3ds-examples not supported yet")
@@ -53,6 +53,9 @@ class Conan(ConanFile):
 
     def source(self):
         get(self, **self.conan_data["sources"][self.version], strip_root=True)
+
+        if self.version == "20190102":
+            patch(self, base_path=".", patch_file="45758185_fix_parallel_building.patch")
 
         # The project Makefiles hardcode CFLAGS and LDFLAGS *and* they expect citro3d to be installed into the libctru library...
         # Patch up the Makefiles so it can pick up our libraries

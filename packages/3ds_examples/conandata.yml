@@ -14,6 +14,6 @@ sources:
   "20180513":
     url: "https://github.com/devkitPro/3ds-examples/archive/refs/tags/v20180513.zip"
     sha256: "e1dc1aa290a9da94dd76daf24f695e27f4f089ee605270fc9a25c442b751f805"
-  "20220129":
-    url: "https://github.com/devkitPro/3ds-examples/archive/refs/tags/v20220129.zip"
-    sha256: "cca05516ecf988db7b6fba7fd4e90b6ffb4a5284cf0c32a3b05aaad7a83700b9"
+  "20190102":
+    url: "https://github.com/devkitPro/3ds-examples/archive/refs/tags/v20190102.zip"
+    sha256: "6c1ffef07b41a5e12f174ca997894d0e2c6f366b359a399ddf0eaa0f49322022"
