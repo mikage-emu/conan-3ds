@@ -16,7 +16,7 @@ class Conan(ConanFile):
 
     generators = "AutotoolsToolchain"
 
-    tool_requires = ["dka_general_tools/1.2.0"]
+    tool_requires = ["dka_general_tools/1.2.0", "picasso/2.7.0"]
 
     def requirements(self):
         if self.version == "20150818-2c57809":
