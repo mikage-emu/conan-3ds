@@ -29,5 +29,4 @@ class Conan(ConanFile):
         copy(self, "*", src=self.source_folder, dst=self.package_folder)
 
     def package_info(self):
-        self.cpp_info.includedirs = [os.path.join(self.package_folder, "include")]
         self.cpp_info.libs = collect_libs(self)
