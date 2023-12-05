@@ -27,11 +27,14 @@ class Conan(ConanFile):
     def requirements(self):
         if self.version == "20150818-2c57809":
             self.requires("libctru/0.6.0")
-        else:
-            #self.requires("libctru/1.2.1")
+        #elif int(self.version) <= int('20170714'):
+        elif int(self.version) <= int('20190714'):
             self.requires("libctru/1.5.1")
             self.requires("citro3d/1.4.0") # 20170714 requires <= 1.4.0
-            #self.requires("citro3d/1.5.0")
+        else:
+            # TODO: Requires new devkitarm
+            raise Exception("Recent 3ds-examples not supported yet")
+            #self.requires("libctru/2.2.1")
 
     def build_requirements(self):
         # TODO: Old versions only
