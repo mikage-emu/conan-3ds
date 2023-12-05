@@ -1,6 +1,7 @@
 from conan import ConanFile, tools
 from conan.tools.files import chdir, collect_libs, copy, get, replace_in_file
 from conan.tools.gnu import Autotools
+from conan.tools.scm import Version
 
 import os
 
@@ -11,15 +12,21 @@ class Conan(ConanFile):
     url = 'https://github.com/fincs/citro3d'
 
     def requirements(self):
-        self.requires("libctru/[>=1.5.1]")
+        ver = Version(self.version)
+        if ver >= Version('1.6.1'):
+            self.requires("libctru/[>=1.5.1]")
+        elif ver >= Version('1.4.0'):
+            self.requires("libctru/[>=1.5.1 <2.0.0]") # 2.0.0 Deprecated gfxConfigScreen (breaking due to -Werror=deprecated-declarations), used up to including citro3d 1.6.0
+        else:
+            raise Exception("Unrecognized citro3d version")
 
     exports_sources = 'add_missing_includes.patch'
 
     generators = "AutotoolsToolchain"
 
     def source(self):
-        get(self, **self.conan_data["sources"][self.version])
-        #tools.patch(base_path=".", patch_file="add_missing_includes.patch")
+        strip_root = Version(self.version) >= Version('1.6.0')
+        get(self, **self.conan_data["sources"][self.version], strip_root=strip_root)
 
     def build(self):
         with chdir(self, self.source_folder):

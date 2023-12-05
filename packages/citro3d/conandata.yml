@@ -5,3 +5,9 @@ sources:
   "1.5.0":
     url: "https://github.com/fincs/citro3d/releases/download/v1.5.0/citro3d-src-1.5.0.tar.bz2"
     sha256: "2f7b70717c228167367bf35347713d5a4d7eed09ea71a6f2733e0b296dc64406"
+  "1.6.0":
+    url: "https://github.com/devkitPro/citro3d/archive/refs/tags/v1.6.0.tar.gz"
+    sha256: "ed3539217d2b09fb911c80df4cc5cebba321244915ba01dfb4b06b25fb468f73"
+  "1.6.1":
+    url: "https://github.com/devkitPro/citro3d/archive/refs/tags/v1.6.1.tar.gz"
+    sha256: "f7b73dd0ef38a7a5d44cfce1ea3339cce2de766cc684515d781a7145a06571cf"

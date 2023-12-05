@@ -1,5 +1,5 @@
 from conan import ConanFile, tools
-from conan.tools.files import chdir, collect_libs, copy, get, patch, replace_in_file
+from conan.tools.files import chdir, collect_libs, copy, get, patch, replace_in_file, rmdir
 from conan.tools.gnu import Autotools, AutotoolsDeps
 
 import os
@@ -11,7 +11,8 @@ class Conan(ConanFile):
     description = 'Examples for 3DS using devkitARM, libctru and citro3d'
     url = 'https://github.com/devkitpro/3ds-examples'
 
-    generators = ["AutotoolsToolchain"]
+    # TODO: PkgConfigDeps only required starting from 20200716
+    generators = ["AutotoolsToolchain", "PkgConfigDeps"]
 
     # TODO: Make version-specific
     tool_requires = ["dka_general_tools/1.2.0", "picasso/2.7.0"]
@@ -26,12 +27,15 @@ class Conan(ConanFile):
     def requirements(self):
         if self.version == "20150818-2c57809":
             self.requires("libctru/0.6.0")
-        elif int(self.version) > 20200417:
+        elif int(self.version) > 20200716:
             # TODO: Requires new devkitarm
             raise Exception("Recent 3ds-examples not supported yet")
+        elif int(self.version) >= 20200716:
+            self.requires("libctru/[>=2.0.0]") # 20200716 requires aptSetChainloaderToSelf
+            self.requires("citro2d/[>=1.4.0]") # 20200716 requires new text aligment APIs (C2D_AlignRight, ...)
         elif int(self.version) >= 20200417:
-            self.requires("libctru/[>=1.6.0]") # 20200417 requires 1.6.0 for new Mii Selector definitions
             self.requires("citro2d/[>=1.1.0]")
+            self.requires("libctru/[>=1.6.0]") # 20200417 requires 1.6.0 for new Mii Selector definitions
         elif int(self.version) >= 20190102:
             self.requires("citro2d/[>=1.1.0 <1.2.0]") # 20190102 requires 1.1.0 for ellipse rendering functions
         elif int(self.version) >= 20180513:
@@ -57,6 +61,14 @@ class Conan(ConanFile):
 
         if self.version == "20190102":
             patch(self, base_path=".", patch_file="45758185_fix_parallel_building.patch")
+
+        if int(self.version) >= 20200716:
+            # New opus-decoding example requires opusfile, which is very difficult to get working:
+            # - has a dependency on openssl (though the recipe has an option to disable it)
+            # - opus fails to build unless we forcefully remove arm_neon.h from devkitARM
+            # - the Conan recipe pulls in pthread and dl if the Conan profile uses Linux for its OS
+            # As a workaround, we just disable this hence
+            rmdir(self, os.path.join(self.source_folder, "audio/opus-decoding/"))
 
         # The project Makefiles hardcode CFLAGS and LDFLAGS *and* they expect citro3d to be installed into the libctru library...
         # Patch up the Makefiles so it can pick up our libraries

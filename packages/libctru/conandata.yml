@@ -28,3 +28,7 @@ sources:
     url: "https://github.com/devkitPro/libctru/archive/refs/tags/v1.6.0.tar.gz"
     sha256: "aeab44a2320c00e2b6e70e0d92898ed6dcfd43c0bf94221ec10310517be81f0d"
     dka_min: 49
+  "2.0.0":
+    url: "https://github.com/devkitPro/libctru/archive/refs/tags/v2.0.0.tar.gz"
+    sha256: "340582cc972ff214a7a6f5b1dd1df6dfc3937d9cef9fdb310b3c4beadcbcebe7"
+    dka_min: 49
