@@ -44,6 +44,9 @@ class Conan(ConanFile):
             # TODO: Move to toolchain?
             self.tool_requires("dka_3dstools/1.1.4")
 
+        if int(self.version) >= 20180513:
+            self.tool_requires("tex3ds/[>1.0.1]")
+
     def source(self):
         get(self, **self.conan_data["sources"][self.version], strip_root=True)
 
