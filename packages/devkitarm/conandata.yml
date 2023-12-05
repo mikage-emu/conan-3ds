@@ -11,3 +11,6 @@ sources:
   "49":
     url: "https://wii.leseratte10.de/devkitPro/devkitARM/r49%20%282018%29/devkitARM-r49-2-linux.pkg.tar.xz"
     sha256: "05a5bb450983369f5fda8a02330e6a3022462a678fd8eef7eda1b7a6fc298493"
+  "53":
+    url: "https://wii.leseratte10.de/devkitPro/devkitARM/r53%20%282019-06%29/devkitARM-r53-1-linux.pkg.tar.xz"
+    sha256: "140d217a747c21a46236a6675b2592b54397e53c56dd8aa91aaf73bd19fa9599"
