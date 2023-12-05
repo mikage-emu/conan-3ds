@@ -1,0 +1,59 @@
+diff --git a/include/c3d/base.h b/include/c3d/base.h
+index 04111d7..0680e7e 100644
+--- a/include/c3d/base.h
++++ b/include/c3d/base.h
+@@ -1,6 +1,8 @@
+ #pragma once
+ #include "buffers.h"
+ #include "maths.h"
++#include <3ds/gpu/shaderProgram.h>
++#include <3ds/services/gspgpu.h>
+ 
+ #define C3D_DEFAULT_CMDBUF_SIZE 0x40000
+ 
+diff --git a/include/c3d/framebuffer.h b/include/c3d/framebuffer.h
+index af5c9b9..a56ff03 100644
+--- a/include/c3d/framebuffer.h
++++ b/include/c3d/framebuffer.h
+@@ -1,5 +1,6 @@
+ #pragma once
+ #include "texture.h"
++#include <3ds/gfx.h>
+ 
+ typedef struct
+ {
+diff --git a/include/c3d/mtxstack.h b/include/c3d/mtxstack.h
+index 1de0c25..f6285df 100644
+--- a/include/c3d/mtxstack.h
++++ b/include/c3d/mtxstack.h
+@@ -1,5 +1,6 @@
+ #pragma once
+ #include "maths.h"
++#include <3ds/gpu/enums.h>
+ 
+ #define C3D_MTXSTACK_SIZE 8
+ 
+diff --git a/include/c3d/uniforms.h b/include/c3d/uniforms.h
+index 9e50153..850a1c4 100644
+--- a/include/c3d/uniforms.h
++++ b/include/c3d/uniforms.h
+@@ -1,5 +1,6 @@
+ #pragma once
+ #include "maths.h"
++#include <3ds/types.h>
+ 
+ #define C3D_FVUNIF_COUNT 96
+ #define C3D_IVUNIF_COUNT 4
+diff --git a/include/tex3ds.h b/include/tex3ds.h
+index 18a1363..8b947c5 100644
+--- a/include/tex3ds.h
++++ b/include/tex3ds.h
+@@ -30,6 +30,8 @@
+ #include <citro3d.h>
+ #endif
+ 
++#include <3ds/util/decompress.h>
++
+ #include <stdint.h>
+ #include <stdio.h>
+ 

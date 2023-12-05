@@ -1,0 +1,13 @@
+sources:
+  "20150818-2c57809":
+    url: "https://github.com/devkitPro/3ds-examples/archive/2c578092c8987a5ac51c949ac52e3024e09ea60e.zip"
+    sha256: "24351d25f65d1cd69c9ec69e67eb36bf0f7fa4564ee1ef8af1beb8ee77d6202f"
+  "20170116":
+    url: "https://github.com/devkitPro/3ds-examples/archive/refs/tags/v20170116.zip"
+    sha256: "5e76c36f3d62e870df2e0da09ec84980771ecca3cd77e7ae38a0540f44548af6"
+  "20170226":
+    url: "https://github.com/devkitPro/3ds-examples/archive/refs/tags/v20170226.zip"
+    sha256: "c46ce40dd152ff852f0c61ee0d74f98d0c2d9420b18c0a210349e8c393149d12"
+  "20170714":
+    url: "https://github.com/devkitPro/3ds-examples/archive/refs/tags/v20170714.zip"
+    sha256: "e00f3020924b57f31118e3687aa63d69cc40561d3abe4653a2ee4a4457a38f0c"

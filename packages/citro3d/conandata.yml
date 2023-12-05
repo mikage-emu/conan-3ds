@@ -1,0 +1,4 @@
+sources:
+  "1.5.0":
+    url: "https://github.com/fincs/citro3d/releases/download/v1.5.0/citro3d-src-1.5.0.tar.bz2"
+    sha256: "2f7b70717c228167367bf35347713d5a4d7eed09ea71a6f2733e0b296dc64406"

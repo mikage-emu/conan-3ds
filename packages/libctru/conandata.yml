@@ -1,0 +1,26 @@
+sources:
+  "0.5.0":
+    url: "https://github.com/devkitPro/libctru/archive/refs/tags/v0.5.0.tar.gz"
+    sha256: "df801d76cad4fbfcea02867dad0f542caa0044ba24b442c10f9208f402ea13ad"
+    dka_min: 45
+    dka_max: 45
+  "0.6.0":
+    url: "https://github.com/devkitPro/libctru/archive/refs/tags/v0.6.0.tar.gz"
+    sha256: "e0222798e143ec78599ce45f1fe9482ac529ab700b8ab8b728f9eb095be26111"
+    dka_min: 45
+    dka_max: 45
+  "1.0.0":
+    url: "https://github.com/devkitPro/libctru/archive/refs/tags/v1.0.0.tar.gz"
+    sha256: "df4ae249a81ca40e0e42c86a679cbaf5b5022846bca741e280799b1d8a2bde14"
+    dka_min: 45
+    dka_max: 45
+  "1.2.1":
+    url: "https://github.com/devkitPro/libctru/archive/refs/tags/v1.2.1.tar.gz"
+    sha256: "9938a8391c3e4e04a90d946393e2535beb34401fa8003ff0c68b55c041a3907b"
+    # DKA r47
+    dka_min: 47
+    dka_max: 47
+  "1.5.1":
+    url: "https://github.com/devkitPro/libctru/archive/refs/tags/v1.5.1.tar.gz"
+    sha256: "f216ad51794dbfa58a77347be6f8db6a919524a7edfc91adbb6c5d617ef5c9cc"
+    dka_min: 49
