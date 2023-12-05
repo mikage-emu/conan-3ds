@@ -1,0 +1,7 @@
+sources:
+  "1.0.0":
+    url: "https://github.com/devkitPro/citro2d/archive/v1.0.0.tar.gz"
+    sha256: "bd3a4a45c900be67bec6bcf6ca4a4cc33bc88c64d6c497b4050c03e70a6e1cf4"
+  "1.2.0":
+    url: "https://github.com/devkitPro/citro2d/archive/v1.2.0.tar.gz"
+    sha256: "9f2da5a84d8a2ddf2c8d1e6f75fb74528c5b45ba99d70328200def133b834554"
