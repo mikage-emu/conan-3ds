@@ -1,4 +1,7 @@
 {% set dkaver = profile_name[9:] %}
+{% if dkaver == "" %}
+{{ None['ERROR: Cannot use this profile directly. Use one of the fixed-version profiles, for example devkitarm49.'][0] }}
+{% endif %}
 [settings]
 os=Linux
 arch=armv6
