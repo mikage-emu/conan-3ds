@@ -1,0 +1,14 @@
+{% set dkaver = profile_name[9:] %}
+[settings]
+os=Linux
+arch=armv6
+compiler=gcc
+compiler.version=13
+compiler.libcxx=libstdc++11
+build_type=Release
+
+[conf]
+user.devkitarm:version={{ dkaver }}
+
+[tool_requires]
+devkitarm/{{ dkaver }}
