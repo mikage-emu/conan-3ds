@@ -15,6 +15,8 @@ class LibctruConan(ConanFile):
 
     generators = "AutotoolsToolchain"
 
+    tool_requires = "dka_general_tools/1.2.0"
+
     def validate(self):
         conan_data = self.conan_data["sources"][self.version]
         minver = conan_data["dka_min"]

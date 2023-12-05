@@ -16,6 +16,8 @@ class Conan(ConanFile):
 
     generators = "AutotoolsToolchain"
 
+    tool_requires = ["dka_general_tools/1.2.0"]
+
     def requirements(self):
         if self.version == "20150818-2c57809":
             self.requires("libctru/0.6.0")
