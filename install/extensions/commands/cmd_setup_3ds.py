@@ -16,6 +16,8 @@ def setup_3ds(conan_api: ConanAPI, parser, *args):
     """
     Set up Conan for 3DS homebrew development
     """
+    args = parser.parse_args(*args)
+
     ConanOutput().define_log_level("warning")
 
     main_profile_path = conan_api.profiles.get_path("devkitarm")
