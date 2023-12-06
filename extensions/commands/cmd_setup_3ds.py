@@ -23,8 +23,7 @@ def setup_3ds(conan_api: ConanAPI, parser, *args):
     main_profile_path = conan_api.profiles.get_path("devkitarm")
 
     with tempfile.TemporaryDirectory() as tmpfolder:
-        # TODO: Publish repository
-        check_output_runner("git clone \"%s\" \"%s\"" % ("TODO_LOCAL_REPOSITORY_HERE", tmpfolder)).strip()
+        check_output_runner("git clone \"%s\" \"%s\"" % ("git@github.com:mikage-emu/conan-3ds.git", tmpfolder)).strip()
 
         # Export package recipes
         packages_folder = os.path.join(tmpfolder, "packages")
