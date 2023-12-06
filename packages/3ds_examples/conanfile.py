@@ -27,8 +27,11 @@ class Conan(ConanFile):
     def requirements(self):
         if self.version == "20150818-2c57809":
             self.requires("libctru/0.6.0")
-        elif int(self.version) > 20210610:
+        elif int(self.version) > 20220129:
             raise Exception("Recent 3ds-examples not supported yet")
+        elif int(self.version) >= 20220129:
+            self.requires("libctru/[>=2.1.0]") # 20220129 requires new link3dsStdio API
+            self.requires("citro2d/[>=1.4.0]")
         elif int(self.version) >= 20200716:
             self.requires("libctru/[>=2.0.0]") # 20200716 requires aptSetChainloaderToSelf
             self.requires("citro2d/[>=1.4.0]") # 20200716 requires new text aligment APIs (C2D_AlignRight, ...)
