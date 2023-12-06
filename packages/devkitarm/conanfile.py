@@ -1,6 +1,7 @@
 from conan import ConanFile
-from conan.tools.files import chdir, copy, download, get, rename, unzip
+from conan.tools.files import chdir, copy, download, get, rename, replace_in_file, unzip
 from conan.tools.cmake import cmake_layout
+from conan.tools.gnu import Autotools, AutotoolsToolchain
 
 from conan.tools.scm import Git
 
@@ -20,6 +21,13 @@ class Conan(ConanFile):
     #    if int(self.version) >= TODO: # TODO: Version r51 require https://github.com/devkitPro/devkitarm-rules
     #        self.requires('dka_general_tools/[>=1.3.0]')
 
+    def generate(self):
+        autotools = AutotoolsToolchain(self)
+        env = autotools.environment()
+        env.define("DEVKITPRO", self.build_folder)
+        env.define("DEVKITARM", os.path.join(self.build_folder, "devkitARM"))
+        autotools.generate(env)
+
     def build_requirements(self):
         if (self.conan_data["sources"][self.version]["url"].endswith("zst")):
             #if int(self.version) >= 60:
@@ -37,12 +45,27 @@ class Conan(ConanFile):
         if int(self.version) >= 48:
             rename(self, "opt/devkitpro/devkitARM", "devkitARM")
 
-        if int(self.version) >= 51: # TODO: Version r51 require https://github.com/devkitPro/devkitarm-rules
+        if int(self.version) >= 51: # TODO: Version r51 have separate repositories for rules and crtls
             git = Git(self, ".")
             git.clone("https://github.com/devkitPro/devkitarm-rules")
             with chdir(self, "devkitarm-rules"):
-                git.checkout("v1.0.0");
-            copy(self, "*", "devkitarm-rules", "devkitARM")
+                #git.checkout("v1.0.0");
+                git.checkout("v1.3.0"); # TODO: Fix version properly
+
+            # Patch hardcoded paths
+            replace_in_file(self, "devkitarm-rules/Makefile", "/opt/devkitpro/devkitARM", "$(DEVKITARM)")
+            with chdir(self, "devkitarm-rules"):
+                autotools = Autotools(self)
+                autotools.make()
+                autotools.install(args=["DESTDIR="]) # Suppress default DESTDIR argument implicitly added by Conan
+
+            git.clone("https://github.com/devkitPro/devkitarm-crtls")
+            # Patch hardcoded paths
+            replace_in_file(self, "devkitarm-crtls/Makefile", "/opt/devkitpro/devkitARM", "$(DEVKITARM)")
+            with chdir(self, "devkitarm-crtls"):
+                autotools = Autotools(self)
+                autotools.make()
+                autotools.install(args=["DESTDIR="]) # Suppress default DESTDIR argument implicitly added by Conan
 
     def package(self):
         copy(self, "*", self.build_folder, self.package_folder)
@@ -59,6 +82,7 @@ class Conan(ConanFile):
 
         self.buildenv_info.define("CC",  os.path.join(bindir, "arm-none-eabi-gcc")) # TODO: -cc instead of -gcc?
         self.buildenv_info.define("CXX", os.path.join(bindir, "arm-none-eabi-g++"))
+        self.buildenv_info.define("DEVKITPRO", self.package_folder)
         self.buildenv_info.define("DEVKITARM", toolchain_path)
 
         # TODO: Add newlib libs and headers
