@@ -1,8 +1,10 @@
 from conan import ConanFile
-from conan.tools.files import chdir, copy, get, rename
+from conan.tools.files import chdir, copy, download, get, rename, unzip
 from conan.tools.cmake import cmake_layout
 
 from conan.tools.scm import Git
+
+from conans.util.runners import check_output_runner
 
 import os
 
@@ -18,8 +20,20 @@ class Conan(ConanFile):
     #    if int(self.version) >= TODO: # TODO: Version r51 require https://github.com/devkitPro/devkitarm-rules
     #        self.requires('dka_general_tools/[>=1.3.0]')
 
+    def build_requirements(self):
+        if (self.conan_data["sources"][self.version]["url"].endswith("zst")):
+            #if int(self.version) >= 60:
+            self.tool_requires('zstd/[>=1.3.0]')
+
     def build(self):
-        get(self, **self.conan_data["sources"][self.version])
+        url = self.conan_data["sources"][self.version]["url"]
+        if (url.endswith("zst")):
+            filename = os.path.basename(url)
+            download(self, url=url, filename=filename)
+            check_output_runner("zstd -d \"%s\"" % filename).strip()
+            unzip(self, os.path.splitext(filename)[0]) # Strip .zst extension
+        else:
+            get(self, **self.conan_data["sources"][self.version])
         if int(self.version) >= 48:
             rename(self, "opt/devkitpro/devkitARM", "devkitARM")
 
