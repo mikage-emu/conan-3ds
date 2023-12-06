@@ -23,3 +23,6 @@ sources:
   "20200716":
     url: "https://github.com/devkitPro/3ds-examples/archive/refs/tags/v20200716.zip"
     sha256: "8ea9d827252d5efe9f0da5dab569a76eeae97cd1e1fcf9650a21428777ec9229"
+  "20210610":
+    url: "https://github.com/devkitPro/3ds-examples/archive/refs/tags/v20210610.zip"
+    sha256: "7931e9f102a122a70a42d4649027e56fa1c513ad4be3f605501b303f11032d3e"

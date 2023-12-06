@@ -27,8 +27,7 @@ class Conan(ConanFile):
     def requirements(self):
         if self.version == "20150818-2c57809":
             self.requires("libctru/0.6.0")
-        elif int(self.version) > 20200716:
-            # TODO: Requires new devkitarm
+        elif int(self.version) > 20210610:
             raise Exception("Recent 3ds-examples not supported yet")
         elif int(self.version) >= 20200716:
             self.requires("libctru/[>=2.0.0]") # 20200716 requires aptSetChainloaderToSelf
@@ -44,6 +43,13 @@ class Conan(ConanFile):
             self.requires("citro3d/[<=1.4.0]") # 20170714 requires <= 1.4.0 due to API deprecation
         else:
             raise Exception("Unrecognized 3ds-examples version")
+
+        if int(self.version) >= 20210610:
+            # New modplug-decoding example requires libmodplug, which in turn requires zlib
+            self.requires("libmodplug/[>=0.8.9.0]")
+            self.requires("zlib/[>=1.3]")
+            # New box2d example
+            self.requires("box2d/[>=2.3.1]")
 
     def build_requirements(self):
         # TODO: Old versions only
