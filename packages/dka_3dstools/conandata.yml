@@ -1,0 +1,16 @@
+sources:
+  "1.1.4":
+    url: "https://github.com/devkitPro/3dstools/archive/v1.1.4.tar.gz"
+    sha256: "c68c53c87cf05faee1b5ed1e6ef49578faacca769e5be0a0b6fd7de4966f8d15"
+  "1.1.5":
+    url: "https://github.com/devkitPro/3dstools/archive/v1.1.5.tar.gz"
+    sha256: "47b6a830e583631708d5919e50c7e0155b378bf8f42aa0a5fb56c3f9b5d898dc"
+  "1.2.0":
+    url: "https://github.com/devkitPro/3dstools/archive/v1.2.0.tar.gz"
+    sha256: "774fda73b4dc98074e1006618b7d48b81fbaac6c7aa30ce52ba979aac38eed45"
+  "1.3.0":
+    url: "https://github.com/devkitPro/3dstools/archive/v1.3.0.tar.gz"
+    sha256: "b2a9bc8ca37f868ef86ae3082f568ce804607f8bb986b797478cb71732ed8b2c"
+  "1.3.1":
+    url: "https://github.com/devkitPro/3dstools/archive/v1.3.1.tar.gz"
+    sha256: "a1eab5138ad985f6fb3e999706a51300c363399bb1a83ec5a052958ed74d8f45"

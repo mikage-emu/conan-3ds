@@ -58,6 +58,9 @@ class Conan(ConanFile):
         # TODO: Old versions only
         if self.version == "20150818-2c57809":
             self.tool_requires("aemstro/51bfeef")
+        if int(self.version) >= 20220129:
+            # Newer smdhtool is needed
+            self.tool_requires("dka_3dstools/[>=1.3.1]")
         else:
             # TODO: Move to toolchain?
             self.tool_requires("dka_3dstools/1.1.4")

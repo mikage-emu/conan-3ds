@@ -6,7 +6,6 @@ import os
 
 class Conan(ConanFile):
     name = 'dka_3dstools'
-    version = '1.1.4'
     url = 'https://github.com/devkitPro/3dstools'
     _source_subfolder = 'source_subfolder'
 
@@ -16,7 +15,7 @@ class Conan(ConanFile):
     generators = "CMakeToolchain"
 
     def source(self):
-        get(self, "https://github.com/devkitPro/3dstools/archive/v%s.tar.gz" % self.version, sha256='c68c53c87cf05faee1b5ed1e6ef49578faacca769e5be0a0b6fd7de4966f8d15')
+        get(self, **self.conan_data["sources"][self.version])
         os.rename("3dstools-%s" % self.version, self._source_subfolder)
 
     def build(self):
