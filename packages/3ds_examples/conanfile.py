@@ -15,7 +15,7 @@ class Conan(ConanFile):
     generators = ["AutotoolsToolchain", "PkgConfigDeps"]
 
     # TODO: Make version-specific
-    tool_requires = ["dka_general_tools/1.2.0", "picasso/2.7.0"]
+    tool_requires = ["dka_general_tools/1.2.0", "dka_pkgconf/2.1.0", "picasso/2.7.0"]
 
     exports_sources = ['45758185_fix_parallel_building.patch']
 
