@@ -50,7 +50,8 @@ class Conan(ConanFile):
             git.clone("https://github.com/devkitPro/devkitarm-rules")
             with chdir(self, "devkitarm-rules"):
                 #git.checkout("v1.0.0");
-                git.checkout("v1.3.0"); # TODO: Fix version properly
+                #git.checkout("v1.3.0");
+                git.checkout("v1.5.0"); # TODO: Fix version properly. 1.5.0 required for shbin rules
 
             # Patch hardcoded paths
             replace_in_file(self, "devkitarm-rules/Makefile", "/opt/devkitpro/devkitARM", "$(DEVKITARM)")
