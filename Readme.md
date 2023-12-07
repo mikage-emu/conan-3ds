@@ -29,7 +29,7 @@ configuration other than conan-3ds's own.
 Proper usage instructions will be provided in the future. For now, try building the
 [3ds-examples](https://github.com/devkitPro/3ds-examples):
 ```sh
-$ conan install-3ds 3ds-examples
+$ conan install-3ds 3ds_examples
 ```
 
 This will install the latest available package version. You can also install old versions if
