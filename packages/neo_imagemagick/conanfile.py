@@ -1,13 +1,21 @@
-from conans import ConanFile, tools, AutoToolsBuildEnvironment, MSBuild
+# Adapted from https://github.com/conan-io/conan-center-index/blob/master/recipes/imagemagick/all/conanfile.py
+# with compatibility for Conan 2.0
+
+from conan import ConanFile, tools
+from conan.tools.files import chdir, collect_libs, copy, get, replace_in_file, rm, rmdir
+from conan.tools.gnu import Autotools, AutotoolsToolchain
+from conan.tools.scm import Version
+
 from conans.errors import ConanInvalidConfiguration
+
 import os
 import glob
 
-required_conan_version = ">=1.33.0"
+required_conan_version = ">=2.0.0"
 
 
 class ImageMagicConan(ConanFile):
-    name = "imagemagick"
+    name = "neo_imagemagick"
     description = (
         "ImageMagick is a free and open-source software suite for displaying, converting, and editing "
         "raster image and vector image files"
@@ -17,7 +25,7 @@ class ImageMagicConan(ConanFile):
     homepage = "https://imagemagick.org"
     license = "ImageMagick"
     settings = "os", "arch", "compiler", "build_type"
-    generators = "pkg_config"
+    generators = ["PkgConfigDeps", "AutotoolsToolchain"]
     options = {
         "shared": [True, False],
         "fPIC": [True, False],
@@ -55,7 +63,7 @@ class ImageMagicConan(ConanFile):
         "with_jbig": True,
         "with_jpeg": "libjpeg",
         "with_openjp2": True,
-        "with_pango": True,
+        "with_pango": False, # Not yet compatible with Conan 2
         "with_png": True,
         "with_tiff": True,
         "with_webp": False,
@@ -80,7 +88,7 @@ class ImageMagicConan(ConanFile):
 
     @property
     def _is_msvc(self):
-        return self.settings.compiler == "Visual Studio"
+        return False
 
     @property
     def _modules(self):
@@ -106,17 +114,17 @@ class ImageMagicConan(ConanFile):
         if self.options.with_bzlib:
             self.requires("bzip2/1.0.8")
         if self.options.with_lzma:
-            self.requires("xz_utils/5.2.5")
+            self.requires("xz_utils/5.4.5")
         if self.options.with_lcms:
-            self.requires("lcms/2.11")
+            self.requires("lcms/2.13.1")
         if self.options.with_openexr:
             self.requires("openexr/2.5.7")
         if self.options.with_heic:
-            self.requires("libheif/1.12.0")
+            self.requires("libheif/1.16.2") # Updated due to -Werror
         if self.options.with_jbig:
             self.requires("jbig/20160605")
         if self.options.with_jpeg == "libjpeg":
-            self.requires("libjpeg/9d")
+            self.requires("libjpeg/9e")
         elif self.options.with_jpeg == "libjpeg-turbo":
             self.requires("libjpeg-turbo/2.1.0")
         if self.options.with_openjp2:
@@ -124,7 +132,7 @@ class ImageMagicConan(ConanFile):
         if self.options.with_pango:
             self.requires("pango/1.50.7")
         if self.options.with_png:
-            self.requires("libpng/1.6.37")
+            self.requires("libpng/1.6.40")
         if self.options.with_tiff:
             self.requires("libtiff/4.3.0")
         if self.options.with_webp:
@@ -140,30 +148,26 @@ class ImageMagicConan(ConanFile):
             )
 
     def source(self):
-        tools.get(
+        get(self,
             **self.conan_data["sources"][self.version]["source"],
             destination=self._source_subfolder,
             strip_root=True
         )
 
-        if self._is_msvc:
-            visualmagick_version = list(
-                self.conan_data["sources"][self.version]["visualmagick"].keys()
-            )[0]
-            tools.get(
-                **self.conan_data["sources"][self.version]["visualmagick"][
-                    visualmagick_version
-                ],
-                destination="VisualMagick",
-                strip_root=True
-            )
+    def layout(self):
+        self.layouts.source = self._source_subfolder;
 
     def build(self):
         if self._is_msvc:
             self._build_msvc()
         else:
-            with tools.chdir(self._source_subfolder):
+            with chdir(self, self._source_subfolder):
                 env_build = self._build_configure()
+                replace_in_file(self,
+                    os.path.join("MagickCore", "magick-baseconfig.h"),
+                    "#define MAGICKCORE_LQR_DELEGATE 1",
+                    "",
+                )
                 env_build.make()
 
     def _build_msvc(self):
@@ -323,17 +327,15 @@ class ImageMagicConan(ConanFile):
     def _build_configure(self):
         if self._autotools:
             return self._autotools
-        self._autotools = AutoToolsBuildEnvironment(
-            self, win_bash=tools.os_info.is_windows
-        )
-
-        # FIXME: workaround for xorg/system adding system includes https://github.com/conan-io/conan-center-index/issues/6880
-        if "/usr/include/uuid" in self._autotools.include_paths:
-            self._autotools.include_paths.remove("/usr/include/uuid")
-
+        self._autotools = Autotools(self)
 
         def yes_no(o):
             return "yes" if o else "no"
+
+        ## FIXME: workaround for xorg/system adding system includes https://github.com/conan-io/conan-center-index/issues/6880
+        #if "/usr/include/uuid" in self._autotools.include_paths:
+        #    self._autotools.include_paths.remove("/usr/include/uuid")
+
 
         args = [
             "--disable-openmp",
@@ -363,25 +365,27 @@ class ImageMagicConan(ConanFile):
             "--with-djvu={}".format(yes_no(self.options.with_djvu)),
             "--with-utilities={}".format(yes_no(self.options.utilities)),
         ]
-        self._autotools.configure(args=args)
+        print("os.getcwd()")
+        print(os.getcwd())
+        self._autotools.configure(args=args, build_script_folder=self._source_subfolder)
 
         return self._autotools
 
     def package(self):
-        with tools.chdir(self._source_subfolder):
+        with chdir(self, self._source_subfolder):
             env_build = self._build_configure()
             env_build.install()
 
-        with tools.chdir(self.package_folder):
+        with chdir(self, self.package_folder):
             # remove undesired files
-            tools.rmdir(os.path.join("lib", "pkgconfig"))  # pc files
-            tools.rmdir("etc")
-            tools.rmdir("share")
-            tools.remove_files_by_mask("lib", "*.la")
+            rmdir(self, os.path.join("lib", "pkgconfig"))  # pc files
+            rmdir(self, "etc")
+            rmdir(self, "share")
+            rm(self, "*.la", "lib")
 
-        self.copy(pattern="LICENSE", dst="licenses", src=self._source_subfolder)
+        copy(self, pattern="LICENSE", dst="licenses", src=self._source_subfolder)
         if self._is_msvc:
-            self.copy(
+            self.copy(self,
                 pattern="*CORE_*.lib",
                 dst="lib",
                 src=os.path.join("VisualMagick", "lib"),
@@ -419,7 +423,7 @@ class ImageMagicConan(ConanFile):
             suffix = "HDRI" if self.options.hdri else ""
             return "%s-%s.Q%s%s" % (
                 library,
-                tools.Version(self.version).major,
+                7,
                 self.options.quantum_depth,
                 suffix,
             )
@@ -481,7 +485,7 @@ class ImageMagicConan(ConanFile):
         )
 
         imagemagick_include_dir = (
-            "include/ImageMagick-%s" % tools.Version(self.version).major
+            "include/ImageMagick-%s" % 7
         )
 
         self.cpp_info.components["MagickCore"].includedirs = [imagemagick_include_dir]
