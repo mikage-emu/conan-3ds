@@ -68,7 +68,7 @@ class Conan(ConanFile):
             # TODO: Move to toolchain?
             self.tool_requires("dka_3dstools/1.1.4")
 
-        if int(self.version) == 20170116:
+        if int(self.version) >= 20170116 and int(self.version) <= 20170226:
             self.tool_requires("neo_imagemagick/7.0.11-14") # "convert" command is used in Makefiles
 
         if int(self.version) >= 20180513:
