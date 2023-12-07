@@ -24,8 +24,11 @@ class Conan(ConanFile):
         if ver <= Version("1.1.0"):
             self.requires('libctru/[<1.6.0]') # Upper bound due to changed font APIs
             self.requires('citro3d/[>=1.4.0 <1.6.1]') # Upper bound is the last version compatible with libctru <1.6.0
-        else:
+        elif ver <= Version("1.3.1"):
             self.requires('libctru/[>=1.6.0]') # Required for new font APIs since 1.2.0
+            self.requires('citro3d/[>=1.4.0]')
+        else:
+            self.requires('libctru/[>=2.0.0]') # Required for new GSP_SCREEN_WIDTH definitions
             self.requires('citro3d/[>=1.4.0]')
 
     def source(self):

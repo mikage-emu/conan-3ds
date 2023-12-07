@@ -31,22 +31,23 @@ class Conan(ConanFile):
         elif int(self.version) > 20230610:
             raise Exception("Unsupported 3ds-examples version")
         elif int(self.version) >= 20220129:
-            self.requires("libctru/[>=2.1.0]") # 20220129 requires new link3dsStdio API
+            self.requires("libctru/[>=2.1.0]")        # 20220129 requires new link3dsStdio API
             self.requires("citro2d/[>=1.4.0]")
         elif int(self.version) >= 20200716:
-            self.requires("libctru/[>=2.0.0]") # 20200716 requires aptSetChainloaderToSelf
-            self.requires("citro2d/[>=1.4.0]") # 20200716 requires new text aligment APIs (C2D_AlignRight, ...)
+            self.requires("libctru/[>=2.0.0 <2.1.0]") # 20200716 requires aptSetChainloaderToSelf; 2.1.0 renamed the _3DS define to __3DS__
+            self.requires("citro3d/[<1.7.0]")         # last version to support libctru<2.1.0
+            self.requires("citro2d/[>=1.4.0]")        # 20200716 requires new text aligment APIs (C2D_AlignRight, ...)
         elif int(self.version) >= 20200417:
             self.requires("libctru/[>=1.6.0 <2.0.0]") # 20200417 requires 1.6.0 for new Mii Selector definitions; 2.0.0 changed aptLaunchLibraryApplet API
             self.requires("citro3d/[<1.6.1]")
-            self.requires("citro2d/[>=1.1.0]")
+            self.requires("citro2d/[>=1.1.0 <1.4.0]") # 1.4.0 is the last version to support libctru <2.0.0
         elif int(self.version) >= 20190102:
             self.requires("citro2d/[>=1.1.0 <1.2.0]") # 20190102 requires 1.1.0 for ellipse rendering functions
         elif int(self.version) >= 20180513:
             self.requires("citro2d/[>=1.0.0 <1.2.0]") # New dependency since 20180513
         elif int(self.version) >= 20170116:
-            self.requires("libctru/[<1.6.0]") # 1.6.0 reworked font APIs
-            self.requires("citro3d/[<=1.4.0]") # 20170714 requires <= 1.4.0 due to API deprecation
+            self.requires("libctru/[<1.6.0]")         # 1.6.0 reworked font APIs
+            self.requires("citro3d/[<=1.4.0]")        # 20170714 requires <= 1.4.0 due to API deprecation
         else:
             raise Exception("Unrecognized 3ds-examples version")
 
