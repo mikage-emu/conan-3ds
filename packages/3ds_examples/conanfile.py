@@ -44,7 +44,7 @@ class Conan(ConanFile):
             self.requires("citro2d/[>=1.1.0 <1.2.0]") # 20190102 requires 1.1.0 for ellipse rendering functions
         elif int(self.version) >= 20180513:
             self.requires("citro2d/[>=1.0.0 <1.2.0]") # New dependency since 20180513
-        elif int(self.version) >= 20170714:
+        elif int(self.version) >= 20170116:
             self.requires("libctru/[<1.6.0]") # 1.6.0 reworked font APIs
             self.requires("citro3d/[<=1.4.0]") # 20170714 requires <= 1.4.0 due to API deprecation
         else:
@@ -67,6 +67,9 @@ class Conan(ConanFile):
         else:
             # TODO: Move to toolchain?
             self.tool_requires("dka_3dstools/1.1.4")
+
+        if int(self.version) == 20170116:
+            self.tool_requires("neo_imagemagick/7.0.11-14") # "convert" command is used in Makefiles
 
         if int(self.version) >= 20180513:
             self.tool_requires("tex3ds/[>1.0.1]")
