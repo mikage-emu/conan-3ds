@@ -23,6 +23,12 @@ sources:
   "53":
     url: "https://wii.leseratte10.de/devkitPro/devkitARM/r53%20%282019-06%29/devkitARM-r53-1-linux.pkg.tar.xz"
     sha256: "140d217a747c21a46236a6675b2592b54397e53c56dd8aa91aaf73bd19fa9599"
+  "54":
+    url: "https://wii.leseratte10.de/devkitPro/devkitARM/r54%20%282020-05%29/devkitARM-r54-3-linux.pkg.tar.xz"
+    sha256: "7bc9a1e824ada3725a4b2a14e73b01742dc8aeea6ef105a8cd4cb27a147c24a4"
+  "55":
+    url: "https://wii.leseratte10.de/devkitPro/devkitARM/r55%20%282020-07-25%29/devkitARM-r55-1-linux_x86_64.pkg.tar.xz"
+    sha256: "9a6288674260500cdbce9d6ff200a778fcf97564b71e0e6dc1a10ae31c07d57e"
   "56":
     url: "https://wii.leseratte10.de/devkitPro/devkitARM/r56%20%282021-04-30%29/devkitARM-r56-3-linux_x86_64.pkg.tar.xz"
     sha256: "5dd5f929290ca381750623f37aa78880c1f893a509b191cba46589455aa41244"
