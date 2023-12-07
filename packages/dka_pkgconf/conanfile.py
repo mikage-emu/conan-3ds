@@ -10,7 +10,8 @@ class Recipe(ConanFile):
 
     exports_sources = "arm-none-eabi-pkg-config"
 
-    requires = 'pkgconf/2.1.0'
+    def requirements(self):
+        self.requires('pkgconf/2.1.0', run=True)
 
     def package(self):
         copy(self, "arm-none-eabi-pkg-config", src=self.source_folder, dst=os.path.join(self.package_folder, "bin"))
