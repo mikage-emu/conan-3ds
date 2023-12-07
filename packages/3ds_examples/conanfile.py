@@ -36,8 +36,9 @@ class Conan(ConanFile):
             self.requires("libctru/[>=2.0.0]") # 20200716 requires aptSetChainloaderToSelf
             self.requires("citro2d/[>=1.4.0]") # 20200716 requires new text aligment APIs (C2D_AlignRight, ...)
         elif int(self.version) >= 20200417:
+            self.requires("libctru/[>=1.6.0 <2.0.0]") # 20200417 requires 1.6.0 for new Mii Selector definitions; 2.0.0 changed aptLaunchLibraryApplet API
+            self.requires("citro3d/[<1.6.1]")
             self.requires("citro2d/[>=1.1.0]")
-            self.requires("libctru/[>=1.6.0]") # 20200417 requires 1.6.0 for new Mii Selector definitions
         elif int(self.version) >= 20190102:
             self.requires("citro2d/[>=1.1.0 <1.2.0]") # 20190102 requires 1.1.0 for ellipse rendering functions
         elif int(self.version) >= 20180513:
