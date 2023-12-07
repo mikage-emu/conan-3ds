@@ -13,7 +13,7 @@ sources:
     sha256: "f7b73dd0ef38a7a5d44cfce1ea3339cce2de766cc684515d781a7145a06571cf"
   "1.6.2":
     url: "https://github.com/devkitPro/citro3d/archive/refs/tags/v1.6.2.tar.gz"
-    sha256: "f7b73dd0ef38a7a5d44cfce1ea3339cce2de766cc684515d781a7145a06571cf"
+    sha256: "d4f669018ca0b932da416a0c7bd100d94ffa11a1c247d64d4b472811f66e8c9b"
   "1.7.0":
     url: "https://github.com/devkitPro/citro3d/archive/refs/tags/v1.7.0.tar.gz"
     sha256: "4f4e816bdaca5a7bf4a905397226b3249026e2fa5ac63dfc0a73296dc83cbb52"

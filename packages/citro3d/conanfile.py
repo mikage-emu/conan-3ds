@@ -16,7 +16,7 @@ class Conan(ConanFile):
         if ver >= Version('1.7.0'):
             self.requires("libctru/[>=2.1.0]") # 2.1.0 renamed the _3DS define to __3DS__
         elif ver >= Version('1.6.1'):
-            self.requires("libctru/[>=1.5.1 <2.1.0]") # 2.1.0 renamed the _3DS define to __3DS__
+            self.requires("libctru/[>=2.0.0 <2.1.0]") # 2.0.0 added the gfxScreenSwapBuffers API; 2.1.0 renamed the _3DS define to __3DS__
         elif ver >= Version('1.4.0'):
             self.requires("libctru/[>=1.5.1 <2.0.0]") # 2.0.0 Deprecated gfxConfigScreen (breaking due to -Werror=deprecated-declarations), used up to including citro3d 1.6.0
         else:
