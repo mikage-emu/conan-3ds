@@ -43,6 +43,7 @@ class Conan(ConanFile):
         elif int(self.version) >= 20180513:
             self.requires("citro2d/[>=1.0.0 <1.2.0]") # New dependency since 20180513
         elif int(self.version) >= 20170714:
+            self.requires("libctru/[<1.6.0]") # 1.6.0 reworked font APIs
             self.requires("citro3d/[<=1.4.0]") # 20170714 requires <= 1.4.0 due to API deprecation
         else:
             raise Exception("Unrecognized 3ds-examples version")
