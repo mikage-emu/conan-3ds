@@ -27,6 +27,7 @@ class Conan(ConanFile):
     def requirements(self):
         if self.version == "20150818-2c57809":
             self.requires("libctru/0.6.0")
+            return
         elif int(self.version) > 20230610:
             raise Exception("Unsupported 3ds-examples version")
         elif int(self.version) >= 20220129:
@@ -57,9 +58,9 @@ class Conan(ConanFile):
             self.requires("box2d/[>=2.3.1]")
 
     def build_requirements(self):
-        # TODO: Old versions only
         if self.version == "20150818-2c57809":
             self.tool_requires("aemstro/51bfeef")
+            return
         if int(self.version) >= 20220129:
             # Newer smdhtool is needed
             self.tool_requires("dka_3dstools/[>=1.3.1]")
@@ -76,13 +77,16 @@ class Conan(ConanFile):
         if self.version == "20190102":
             patch(self, base_path=".", patch_file="45758185_fix_parallel_building.patch")
 
-        if int(self.version) >= 20200716:
-            # New opus-decoding example requires opusfile, which is very difficult to get working:
-            # - has a dependency on openssl (though the recipe has an option to disable it)
-            # - opus fails to build unless we forcefully remove arm_neon.h from devkitARM
-            # - the Conan recipe pulls in pthread and dl if the Conan profile uses Linux for its OS
-            # As a workaround, we just disable this hence
-            rmdir(self, os.path.join(self.source_folder, "audio/opus-decoding/"))
+        try:
+            if int(self.version) >= 20200716:
+                # New opus-decoding example requires opusfile, which is very difficult to get working:
+                # - has a dependency on openssl (though the recipe has an option to disable it)
+                # - opus fails to build unless we forcefully remove arm_neon.h from devkitARM
+                # - the Conan recipe pulls in pthread and dl if the Conan profile uses Linux for its OS
+                # As a workaround, we just disable this hence
+                rmdir(self, os.path.join(self.source_folder, "audio/opus-decoding/"))
+        except ValueError:
+            pass
 
         # The project Makefiles hardcode CFLAGS and LDFLAGS *and* they expect citro3d to be installed into the libctru library...
         # Patch up the Makefiles so it can pick up our libraries
