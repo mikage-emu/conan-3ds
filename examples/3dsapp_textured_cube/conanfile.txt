@@ -1,0 +1,14 @@
+[requires]
+libctru/[<2.0.0]
+citro3d/1.6.0
+
+[tool_requires]
+dka_3dstools/1.3.1
+dka_general_tools/1.2.0
+dka_pkgconf/2.1.0
+picasso/2.7.0
+tex3ds/2.0.1
+
+[generators]
+CMakeDeps
+CMakeToolchain
