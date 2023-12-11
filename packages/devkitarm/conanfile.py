@@ -14,7 +14,15 @@ class Conan(ConanFile):
     description = 'A port of the GNU Compiler Collection (GCC)'
     url = 'https://github.com/devkitPro'
 
+    settings = 'os'
+
     exports_sources = 'DevkitArm3DS.cmake'
+
+    def conandata_os(self):
+        if self.settings.os == 'Linux':
+            return "sources"
+        else:
+            return "sources_%s" % self.settings.os
 
     def generate(self):
         autotools = AutotoolsToolchain(self)
@@ -24,18 +32,18 @@ class Conan(ConanFile):
         autotools.generate(env)
 
     def build_requirements(self):
-        if (self.conan_data["sources"][self.version]["url"].endswith("zst")):
+        if (self.conan_data[self.conandata_os()][self.version]["url"].endswith("zst")):
             self.tool_requires('zstd/[>=1.3.0]')
 
     def build(self):
-        url = self.conan_data["sources"][self.version]["url"]
+        url = self.conan_data[self.conandata_os()][self.version]["url"]
         if (url.endswith("zst")):
             filename = os.path.basename(url)
             download(self, url=url, filename=filename)
             check_output_runner("zstd -d \"%s\"" % filename).strip()
             unzip(self, os.path.splitext(filename)[0]) # Strip .zst extension
         else:
-            get(self, **self.conan_data["sources"][self.version])
+            get(self, **self.conan_data[self.conandata_os()][self.version])
         if int(self.version) >= 48:
             rename(self, "opt/devkitpro/devkitARM", "devkitARM")
 
@@ -52,7 +60,6 @@ class Conan(ConanFile):
             replace_in_file(self, "devkitarm-rules/Makefile", "/opt/devkitpro/devkitARM", "$(DEVKITARM)")
             with chdir(self, "devkitarm-rules"):
                 autotools = Autotools(self)
-                autotools.make()
                 autotools.install(args=["DESTDIR="]) # Suppress default DESTDIR argument implicitly added by Conan
 
             # crt0 and linker scripts
@@ -61,7 +68,7 @@ class Conan(ConanFile):
             replace_in_file(self, "devkitarm-crtls/Makefile", "/opt/devkitpro/devkitARM", "$(DEVKITARM)")
             with chdir(self, "devkitarm-crtls"):
                 autotools = Autotools(self)
-                autotools.make()
+                autotools.make(args=["DEPSDIR=."])
                 autotools.install(args=["DESTDIR="]) # Suppress default DESTDIR argument implicitly added by Conan
 
             # CMake toolchain (shipped as part of the pacman packages)

@@ -11,7 +11,7 @@ class Conan(ConanFile):
     description = 'Homebrew PICA200 shader assembler'
     _source_subfolder = 'source_subfolder'
 
-    settings = "build_type"
+    settings = ['os', 'build_type']
 
     exports_sources = ["CMakeLists.txt"]
     generators = "CMakeToolchain"

@@ -58,7 +58,7 @@ class ImageMagicConan(ConanFile):
         "with_bzlib": True,
         "with_lzma": True,
         "with_lcms": True,
-        "with_openexr": True,
+        "with_openexr": False, # Triggers linking problems on macOS
         "with_heic": True,
         "with_jbig": True,
         "with_jpeg": "libjpeg",
@@ -163,11 +163,12 @@ class ImageMagicConan(ConanFile):
         else:
             with chdir(self, self._source_subfolder):
                 env_build = self._build_configure()
-                replace_in_file(self,
-                    os.path.join("MagickCore", "magick-baseconfig.h"),
-                    "#define MAGICKCORE_LQR_DELEGATE 1",
-                    "",
-                )
+                if self.settings.os == "Linux":
+                    replace_in_file(self,
+                        os.path.join("MagickCore", "magick-baseconfig.h"),
+                        "#define MAGICKCORE_LQR_DELEGATE 1",
+                        "",
+                    )
                 env_build.make()
 
     def _build_msvc(self):

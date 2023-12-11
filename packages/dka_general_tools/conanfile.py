@@ -10,7 +10,7 @@ class Conan(ConanFile):
     url = 'https://github.com/devkitPro/general-tools'
     _source_subfolder = 'source_subfolder'
 
-    settings = "build_type"
+    settings = ['os', 'build_type']
 
     exports_sources = ["CMakeLists.txt"]
     generators = "CMakeToolchain"
