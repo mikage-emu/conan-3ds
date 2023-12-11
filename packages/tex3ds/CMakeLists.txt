@@ -18,7 +18,7 @@ add_executable(tex3ds
     "${SOURCE_SUBFOLDER}/rle.cpp"
     "${SOURCE_SUBFOLDER}/swizzle.cpp"
     "${SOURCE_SUBFOLDER}/tex3ds.cpp")
-#target_compile_features(tex3ds PRIVATE cxx_std_11)
+target_compile_features(tex3ds PRIVATE cxx_std_11)
 target_include_directories(tex3ds PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/source_subfolder/include)
 target_link_libraries(tex3ds PRIVATE ${CONAN_TARGETS})
 #target_link_libraries(tex3ds PRIVATE ImageMagick::Magick++)
@@ -31,7 +31,7 @@ add_executable(mkbcfnt
     "${SOURCE_SUBFOLDER}/mkbcfnt.cpp"
     "${SOURCE_SUBFOLDER}/swizzle.cpp"
     "${SOURCE_SUBFOLDER}/threadPool.cpp")
-#target_compile_features(mkbcfnt PRIVATE cxx_std_11)
+target_compile_features(mkbcfnt PRIVATE cxx_std_11)
 target_include_directories(mkbcfnt PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/source_subfolder/include)
 target_link_libraries(mkbcfnt PRIVATE ${CONAN_TARGETS})
 #target_link_libraries(mkbcfnt PRIVATE ImageMagick::Magick++)
