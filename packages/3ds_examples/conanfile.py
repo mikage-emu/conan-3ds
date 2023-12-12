@@ -69,10 +69,10 @@ class Conan(ConanFile):
             # TODO: Move to toolchain?
             self.tool_requires("dka_3dstools/1.1.4")
 
-        if int(self.version) >= 20170116 and int(self.version) <= 20170226:
+        if int(self.version) >= 20170116 and int(self.version) <= 20170226 and self.settings_build.os != "Windows":
             self.tool_requires("neo_imagemagick/7.0.11-14") # "convert" command is used in Makefiles
 
-        if int(self.version) >= 20180513:
+        if int(self.version) >= 20180513 and self.settings_build.os != "Windows":
             self.tool_requires("tex3ds/[>1.0.1]")
 
     def source(self):
@@ -91,6 +91,15 @@ class Conan(ConanFile):
                 rmdir(self, os.path.join(self.source_folder, "audio/opus-decoding/"))
         except ValueError:
             pass
+
+        # We cannot build ImageMagick on Windows yet, so remove any examples using tex3ds
+        if self.settings_build.os == "Windows":
+            rmdir(self, os.path.join(self.source_folder, "graphics/gpu/mipmap_fog/"))
+            rmdir(self, os.path.join(self.source_folder, "graphics/gpu/normal_mapping/"))
+            rmdir(self, os.path.join(self.source_folder, "graphics/gpu/textured_cube/"))
+            rmdir(self, os.path.join(self.source_folder, "graphics/gpu/cubemap/"))
+            rmdir(self, os.path.join(self.source_folder, "graphics/gpu/gpusprites/"))
+            rmdir(self, os.path.join(self.source_folder, "graphics/gpu/stereoscopic_2d/"))
 
         # The project Makefiles hardcode CFLAGS and LDFLAGS *and* they expect citro3d to be installed into the libctru library...
         # Patch up the Makefiles so it can pick up our libraries
