@@ -35,6 +35,9 @@ class Conan(ConanFile):
         if (self.conan_data[self.conandata_os()][self.version]["url"].endswith("zst")):
             self.tool_requires('zstd/[>=1.3.0]')
 
+        if self.settings.os == 'Windows':
+            self.tool_requires('make/4.4')
+
     def build(self):
         url = self.conan_data[self.conandata_os()][self.version]["url"]
         if (url.endswith("zst")):
