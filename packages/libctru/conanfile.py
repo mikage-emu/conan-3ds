@@ -44,5 +44,6 @@ class LibctruConan(ConanFile):
     def package_info(self):
         self.cpp_info.includedirs = ['include']
         self.cpp_info.libs = collect_libs(self)
+        self.cpp_info.resdirs = ['.'] # required for default_icon.png
 
         self.buildenv_info.define("CTRULIB", os.path.join(self.package_folder))

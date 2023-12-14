@@ -10,7 +10,7 @@ find_program(DKP_BIN2S NAMES bin2s)
 find_package(libctru REQUIRED)
 find_package(citro3d REQUIRED)
 
-# TODO: Discover libctru's default_icon.png
+find_file(CTR_DEFAULT_ICON NAMES default_icon.png HINTS "${libctru_RES_DIRS_RELEASE}")
 
 ctr_add_graphics_target(kitten_data IMAGE OPTIONS -f auto-etc1 -z auto INPUTS gfx/kitten.png)
 dkp_add_embedded_binary_library(kitten kitten_data)
