@@ -7,7 +7,7 @@ from conans.errors import ConanException
 import argparse
 import subprocess
 
-def try_parse_number(str: str) -> int | None:
+def try_parse_number(str: str):
     try:
         return int(str)
     except ValueError:
