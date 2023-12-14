@@ -70,7 +70,7 @@ class Conan(ConanFile):
             self.tool_requires("dka_3dstools/1.1.4")
 
         if int(self.version) >= 20170116 and int(self.version) <= 20170226 and self.settings_build.os != "Windows":
-            self.tool_requires("neo_imagemagick/7.0.11-14") # "convert" command is used in Makefiles
+            self.tool_requires("imagemagick/7.1.1-22") # "convert" command is used in Makefiles
 
         if int(self.version) >= 20180513 and self.settings_build.os != "Windows":
             self.tool_requires("tex3ds/[>1.0.1]")

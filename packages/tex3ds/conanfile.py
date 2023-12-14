@@ -15,8 +15,7 @@ class Conan(ConanFile):
     exports_sources = ["CMakeLists.txt"]
     generators = ["CMakeToolchain", "CMakeDeps"]
 
-    # TODO: Original imagemagick recipe isn't yet compatible with Conan 2
-    requires = ["freetype/2.10.4", "neo_imagemagick/7.0.11-14"]
+    requires = ["freetype/2.13.2", "imagemagick/7.1.1-22"]
 
     def source(self):
         get(self, **self.conan_data["sources"][self.version])
