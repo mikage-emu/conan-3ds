@@ -5,8 +5,6 @@ from conan.tools.gnu import Autotools, AutotoolsToolchain
 
 from conan.tools.scm import Git
 
-from conans.util.runners import check_output_runner
-
 import os
 
 class Conan(ConanFile):
@@ -43,7 +41,7 @@ class Conan(ConanFile):
         if (url.endswith("zst")):
             filename = os.path.basename(url)
             download(self, url=url, filename=filename)
-            check_output_runner("zstd -d \"%s\"" % filename).strip()
+            self.run("zstd -d %s" % filename)
             unzip(self, os.path.splitext(filename)[0]) # Strip .zst extension
         else:
             get(self, **self.conan_data[self.conandata_os()][self.version])
