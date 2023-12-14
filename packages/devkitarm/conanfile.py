@@ -88,6 +88,10 @@ class Conan(ConanFile):
                                         'message(FATAL_ERROR "Could not find arm-none-eabi-pkg-config',
                                         '#message(FATAL_ERROR "Could not find arm-none-eabi-pkg-config')
 
+                # Hardcode DEVKITPRO so the CMake toolchain works without setting up environment variables
+                replace_in_file(self, 'common-utils/dkp-initialize-path.cmake', 'set(DEVKITPRO "/opt/devkitpro")', 'set(DEVKITPRO "' + self.package_folder + '")')
+                replace_in_file(self, 'common-utils/dkp-initialize-path.cmake', 'set(DEVKITPRO "$ENV{DEVKITPRO}")', 'set(DEVKITPRO "' + self.package_folder + '")')
+
                 # The 3dsx linker script links against libctru by default, which
                 # isn't available at the time compile tests are done. Work around
                 # by disabling linking when testing the compiler
