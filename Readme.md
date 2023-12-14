@@ -16,9 +16,9 @@ To be written later.
 To use the repository, first install the package manager [Conan](https://conan.io/downloads) and
 then set up conan-3ds:
 ```sh
-$ pip install conan
-$ conan config install https://github.com/mikage-emu/conan-3ds
-$ conan setup-3ds
+pip install conan
+conan config install https://github.com/mikage-emu/conan-3ds
+conan setup-3ds
 ```
 
 This is safe to run for existing Conan setups as well, since it won't overwrite any previous
@@ -29,11 +29,11 @@ configuration other than conan-3ds's own.
 Proper usage instructions will be provided in the future. For now, try building the
 [3ds-examples](https://github.com/devkitPro/3ds-examples):
 ```sh
-$ conan install-3ds 3ds_examples
+conan install-3ds 3ds_examples
 ```
 
 This will install the latest available package version. You can also install old versions if
 needed, though you may be prompted to specify an old toolchain to use:
 ```sh
-$ conan install-3ds 3ds_examples/20170714 --toolchain devkitarm49
+conan install-3ds 3ds_examples/20170714 --toolchain devkitarm49
 ```
