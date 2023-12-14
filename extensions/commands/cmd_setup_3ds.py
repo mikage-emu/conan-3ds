@@ -3,6 +3,7 @@ from conan.cli.command import conan_command
 from conan.api.output import ConanOutput
 
 from conans.util.runners import check_output_runner
+from conans.errors import ConanException
 
 import tempfile
 
@@ -18,9 +19,20 @@ def setup_3ds(conan_api: ConanAPI, parser, *args):
     """
     args = parser.parse_args(*args)
 
-    ConanOutput().define_log_level("warning")
-
     main_profile_path = conan_api.profiles.get_path("devkitarm")
+
+    try:
+        conan_api.profiles.get_default_build()
+    except ConanException:
+        print("No compiler set up for Conan, auto-detecting:")
+        default_profile = conan_api.profiles.detect()
+        print(default_profile)
+        # TODO: Double-check that the compiler is set. Otherwise, point user to download Visual Studio 2022 Build Tools
+        file = open(os.path.join(os.path.dirname(main_profile_path), "default"), 'x')
+        file.write(str(default_profile))
+        file.close()
+
+    ConanOutput().define_log_level("warning")
 
     with tempfile.TemporaryDirectory() as tmpfolder:
         check_output_runner("git clone \"%s\" \"%s\"" % ("git@github.com:mikage-emu/conan-3ds.git", tmpfolder)).strip()
