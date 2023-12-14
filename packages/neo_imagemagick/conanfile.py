@@ -167,7 +167,7 @@ class ImageMagicConan(ConanFile):
                     replace_in_file(self,
                         os.path.join("MagickCore", "magick-baseconfig.h"),
                         "#define MAGICKCORE_LQR_DELEGATE 1",
-                        "",
+                        "", strict=False
                     )
                 env_build.make()
 
