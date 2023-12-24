@@ -12,15 +12,15 @@ class Conan(ConanFile):
     description = 'A port of the GNU Compiler Collection (GCC)'
     url = 'https://github.com/devkitPro'
 
-    settings = 'os'
+    settings = ['arch', 'os']
 
     exports_sources = 'DevkitArm3DS.cmake'
 
     def conandata_os(self):
-        if self.settings.os == 'Linux':
+        if self.settings.os == 'Linux' and self.settings.arch == "x86_64":
             return "sources"
         else:
-            return "sources_%s" % self.settings.os
+            return "sources_%s_%s" % (self.settings.arch, self.settings.os)
 
     def generate(self):
         autotools = AutotoolsToolchain(self)
