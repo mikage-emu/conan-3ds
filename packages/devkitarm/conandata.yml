@@ -50,7 +50,7 @@ sources:
   "62":
     url: "https://wii.leseratte10.de/devkitPro/devkitARM/r62%20%282023-08-04%29/devkitARM-r62-1-linux_x86_64.pkg.tar.zst"
     sha256: "4e2fd41bc88ed7f83a19675271b6660a1584d492651f9fe4c34cd898faeecedb"
-sources_Macos:
+sources_x86_64_Macos:
   "48":
     url: "https://wii.leseratte10.de/devkitPro/devkitARM/r48%20%282018%29/devkitARM-r48-2-osx.pkg.tar.xz"
     sha256: "fc5093b4693bc2390cf961801232f446eb0147dac7b4315f319ab746533e491d"
@@ -96,10 +96,17 @@ sources_Macos:
   "62":
     url: "https://wii.leseratte10.de/devkitPro/devkitARM/r62%20%282023-08-04%29/devkitARM-r62-1-osx_x86_64.pkg.tar.zst"
     sha256: ""
-sources_Windows:
+sources_x86_64_Windows:
   "49":
     url: "https://wii.leseratte10.de/devkitPro/devkitARM/r49%20%282018%29/devkitARM_r49-win64.tar.xz"
     sha256: "c0c848a807bad16c1602419ed9450fab4ea0dd64c64a425a22438df9d7b17647"
   "62":
     url: "https://wii.leseratte10.de/devkitPro/devkitARM/r62%20%282023-08-04%29/devkitARM-r62-1-windows_x86_64.pkg.tar.zst"
     sha256: "fd92e4d7a4717c6f273cd6fb8604c450cd2b2630c71a6d7eda1649d168e7e395"
+sources_armv8_Linux:
+  "59":
+    url: "https://wii.leseratte10.de/devkitPro/devkitARM/r59%20%282022-11-14%29/devkitARM-r59-2-linux_aarch64.pkg.tar.xz"
+    sha256: "0b22d7c1d31b0b39d778a3e457af6801469b8d00bbf5d6dcba7c2058cae96bde"
+  "62":
+    url: "https://wii.leseratte10.de/devkitPro/devkitARM/r62%20%282023-08-04%29/devkitARM-r62-1-linux_aarch64.pkg.tar.zst"
+    sha256: "asd"
