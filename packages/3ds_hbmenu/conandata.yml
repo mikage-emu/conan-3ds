@@ -1,0 +1,4 @@
+sources:
+  "2.4.2":
+    url: "https://github.com/devkitPro/3ds-hbmenu/archive/refs/tags/v2.4.2.tar.gz"
+    sha256: "ddb620192a50d52c6a2fc38b65f08fcc12cde5c10a92a151827026f4ff1f88e1"
