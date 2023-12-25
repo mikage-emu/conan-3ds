@@ -1,0 +1,42 @@
+From 2736e18adaa0a528dd5ebdb81090562f8b985079 Mon Sep 17 00:00:00 2001
+From: Tony Wasserka <neobrain@users.noreply.github.com>
+Date: Sun, 17 Dec 2023 13:45:30 +0100
+Subject: [PATCH] Add C3D_UnbindProgram
+
+---
+ include/c3d/base.h | 1 +
+ source/base.c      | 6 ++++++
+ 2 files changed, 7 insertions(+)
+
+diff --git a/include/c3d/base.h b/include/c3d/base.h
+index 97796c6..3a28554 100644
+--- a/include/c3d/base.h
++++ b/include/c3d/base.h
+@@ -15,6 +15,7 @@ void C3D_Fini(void);
+ 
+ float C3D_GetCmdBufUsage(void);
+ 
++void C3D_UnbindProgram();
+ void C3D_BindProgram(shaderProgram_s* program);
+ 
+ void C3D_SetViewport(u32 x, u32 y, u32 w, u32 h);
+diff --git a/source/base.c b/source/base.c
+index 65ca89e..593849e 100644
+--- a/source/base.c
++++ b/source/base.c
+@@ -346,6 +346,12 @@ void C3D_Fini(void)
+ 	ctx->flags = 0;
+ }
+ 
++void C3D_UnbindProgram()
++{
++	C3D_Context* ctx = C3Di_GetContext();
++	ctx->program = NULL;
++}
++
+ void C3D_BindProgram(shaderProgram_s* program)
+ {
+ 	C3D_Context* ctx = C3Di_GetContext();
+-- 
+2.43.0
+

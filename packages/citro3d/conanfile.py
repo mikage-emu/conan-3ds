@@ -1,5 +1,5 @@
 from conan import ConanFile, tools
-from conan.tools.files import chdir, collect_libs, copy, get, replace_in_file
+from conan.tools.files import chdir, collect_libs, copy, get, patch, replace_in_file
 from conan.tools.gnu import Autotools
 from conan.tools.scm import Version
 
@@ -23,13 +23,14 @@ class Conan(ConanFile):
         else:
             raise Exception("Unrecognized citro3d version")
 
-    exports_sources = 'add_missing_includes.patch'
+    exports_sources = ['add_missing_includes.patch', 'add_c3d_unbindprogram.patch']
 
     generators = "AutotoolsToolchain"
 
     def source(self):
         strip_root = Version(self.version) >= Version('1.6.0')
         get(self, **self.conan_data["sources"][self.version], strip_root=strip_root)
+        patch(self, patch_file=os.path.join(self.export_sources_folder, 'add_c3d_unbindprogram.patch'))
 
     def build(self):
         with chdir(self, self.source_folder):
