@@ -2,7 +2,9 @@ from conan import ConanFile
 from conan.errors import ConanInvalidConfiguration
 from conan.tools.files import chdir, collect_libs, copy, get, replace_in_file
 from conan.tools.gnu import Autotools
+from conan.tools.scm import Version
 
+import glob
 import os
 
 class LibctruConan(ConanFile):
@@ -31,6 +33,13 @@ class LibctruConan(ConanFile):
 
         # Disable -Werror
         replace_in_file(self, "%s/Makefile" % self._source_subfolder, "-Werror", "", strict=False)
+
+        # Backport fix for https://github.com/devkitPro/libctru/issues/530
+        if Version(self.version) < Version('2.3.0'):
+            for file in glob.iglob('**/*.[ch]', recursive=True):
+                replace_in_file(self, file, "ALIGN(", "CTR_ALIGN(", strict=False)
+                replace_in_file(self, file, "DEPRECATED", "CTR_DEPRECATED", strict=False)
+                replace_in_file(self, file, " PACKED", " CTR_PACKED", strict=False)
 
     def build(self):
         with chdir(self, os.path.join(self.source_folder, self._source_subfolder)):

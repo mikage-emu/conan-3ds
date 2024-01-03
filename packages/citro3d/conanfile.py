@@ -3,6 +3,7 @@ from conan.tools.files import chdir, collect_libs, copy, get, patch, replace_in_
 from conan.tools.gnu import Autotools
 from conan.tools.scm import Version
 
+import glob
 import os
 
 class Conan(ConanFile):
@@ -31,6 +32,13 @@ class Conan(ConanFile):
         strip_root = Version(self.version) >= Version('1.6.0')
         get(self, **self.conan_data["sources"][self.version], strip_root=strip_root)
         patch(self, patch_file=os.path.join(self.export_sources_folder, 'add_c3d_unbindprogram.patch'))
+
+        # Backport fix for https://github.com/devkitPro/libctru/issues/530
+        if Version(self.version) < Version('1.7.1'):
+            for file in glob.iglob('**/*.[ch]', recursive=True):
+                replace_in_file(self, file, "ALIGN(", "CTR_ALIGN(", strict=False)
+                replace_in_file(self, file, "DEPRECATED", "CTR_DEPRECATED", strict=False)
+                replace_in_file(self, file, " PACKED", " CTR_PACKED", strict=False)
 
     def build(self):
         with chdir(self, self.source_folder):
