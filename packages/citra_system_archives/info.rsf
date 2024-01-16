@@ -1,0 +1,6 @@
+BasicInfo:
+  ContentType : Manual
+  Logo : None
+
+RomFs:
+  RootPath : romfs
