@@ -2,11 +2,32 @@
 {% if dkaver == "" %}
 {{ None['ERROR: Cannot use this profile directly. Use one of the fixed-version profiles, for example devkitarm49.'][0] }}
 {% endif %}
+{% set dka_to_gcc_version = {
+  '45': '5.3',
+  '46': '6.3',
+  '47': '7.1',
+  '48': '8.1',
+  '49': '8.1',
+  '50': '8.2',
+  '51': '8.2',
+  '52': '8.3',
+  '53': '9.1',
+  '54': '10.1',
+  '55': '10.2',
+  '56': '11.1',
+  '57': '11.2',
+  '58': '12.1',
+  '59': '12.2',
+  '60': '12.2',
+  '61': '13.1',
+  '62': '13.2',
+} %}
+
 [settings]
 os=Linux
 arch=armv6
 compiler=gcc
-compiler.version=13
+compiler.version={{ dka_to_gcc_version[dkaver] }}
 compiler.libcxx=libstdc++11
 build_type=Release
 
