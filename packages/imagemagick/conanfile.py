@@ -132,7 +132,7 @@ class ImageMagicConan(ConanFile):
         if self.options.with_fftw:
             self.requires("fftw/3.3.10")
         if self.options.with_fontconfig:
-            self.requires("fontconfig/2.14.2")
+            self.requires("fontconfig/2.15.0")
         if self.options.with_freetype:
             self.requires("freetype/2.13.2")
         if self.options.with_heic:
