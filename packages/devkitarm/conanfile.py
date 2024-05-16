@@ -65,6 +65,11 @@ class Conan(ConanFile):
 
             # crt0 and linker scripts
             git.clone("https://github.com/devkitPro/devkitarm-crtls")
+            with chdir(self, "devkitarm-crtls"):
+                if int(self.version) <= 63:
+                    git.checkout("v1.2.4");
+                else:
+                    git.checkout("v1.2.6");
             # Patch hardcoded paths
             replace_in_file(self, "devkitarm-crtls/Makefile", "/opt/devkitpro/devkitARM", "$(DEVKITARM)")
             with chdir(self, "devkitarm-crtls"):
