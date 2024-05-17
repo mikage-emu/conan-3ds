@@ -25,7 +25,9 @@ def install_3ds(conan_api: ConanAPI, parser, *args):
 
     # Select toolchain
     toolchain = try_parse_number(args["toolchain"])
-    if toolchain != None:
+    if args["tool"]:
+        toolchain = "default"
+    elif toolchain != None:
         toolchain = "devkitarm%s" % toolchain
     elif args["toolchain"] == "latest":
         toolchain = conan_api.profiles.list()[-1]
