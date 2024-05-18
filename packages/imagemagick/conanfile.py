@@ -421,6 +421,7 @@ class ImageMagicConan(ConanFile):
         self.cpp_info.components["MagickCore"].libs.append(self._libname("MagickCore"))
         self.cpp_info.components["MagickCore"].requires = core_requires
         self.cpp_info.components["MagickCore"].set_property("pkg_config_name", "MagicCore")
+        self.cpp_info.components["MagickCore"].set_property("cmake_target_name", "ImageMagick::MagickCore")
 
         self.cpp_info.components[self._libname("MagickCore")].requires = ["MagickCore"]
         self.cpp_info.components[self._libname("MagickCore")].set_property("pkg_config_name", self._libname("MagickCore"))
@@ -454,7 +455,7 @@ class ImageMagicConan(ConanFile):
 
             self.cpp_info.components[self._libname("Magick++")].requires = ["Magick++"]
             self.cpp_info.components[self._libname("Magick++")].set_property("pkg_config_name", self._libname("Magick++"))
-
+            self.cpp_info.components["Magick++"].set_property("cmake_target_name", "ImageMagick::Magick++")
             if not self.options.shared:
                 self.cpp_info.components["MagickCore"].defines.append("STATIC_MAGICK=1")
                 self.cpp_info.components["MagickCore"].defines.append("NOAUTOLINK_MAGICK=1")
