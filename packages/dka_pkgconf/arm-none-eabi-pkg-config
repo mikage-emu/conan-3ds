@@ -1,2 +1,7 @@
 #!/usr/bin/env bash
-exec pkgconf "$@"
+if command -v pkgconf &> /dev/null
+then
+    exec pkgconf "$@"
+else
+    exec pkg-config "$@"
+fi
