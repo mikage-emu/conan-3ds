@@ -21,6 +21,7 @@ def install_3ds(conan_api: ConanAPI, parser, *args):
     parser.add_argument('package-name', help='Package to install (e.g. libctru or libctru/2.3.0)')
     parser.add_argument('-t', '--toolchain', metavar="<N>", help='devkitARM version to compile with', default="latest")
     parser.add_argument('--tool', action='store_true', help='Install tools to run the build machine')
+    parser.add_argument('--symlink', action='store_true', help='Create a symlink in the current directory to package binaries')
     args = vars(parser.parse_args(*args))
 
     # Select toolchain
@@ -51,6 +52,8 @@ def install_3ds(conan_api: ConanAPI, parser, *args):
 
     # Initiate install
     command = "conan install --%srequires %s -pr %s --build=missing" % (("tool-" if args["tool"] else ""), package_ref, toolchain)
+    if args["symlink"]:
+        command += " --deployer=3ds_%ssymlink_deploy" % ("tool_" if args["tool"] else "")
     ConanOutput().status("\nRunning: %s" % command)
     process = subprocess.Popen(command, shell=True)
     process.communicate()
