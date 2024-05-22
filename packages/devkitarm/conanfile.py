@@ -19,6 +19,9 @@ class Conan(ConanFile):
     def conandata_os(self):
         if self.settings.os == 'Linux' and self.settings.arch == "x86_64":
             return "sources"
+        elif self.settings.os == 'Macos' and self.settings.arch == "armv8":
+            # No arm64 packages available, so run the x86 ones via Rosetta
+            return "sources_x86_64_Macos"
         else:
             return "sources_%s_%s" % (self.settings.arch, self.settings.os)
 
