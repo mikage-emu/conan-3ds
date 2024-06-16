@@ -31,7 +31,7 @@ To use the repository, first install the package manager [Conan](https://conan.i
 then set up conan-3ds:
 ```sh
 pip install conan
-conan config install https://github.com/mikage-emu/conan-3ds
+conan config install https://github.com/mikage-emu/conan-3ds.git
 conan setup-3ds
 ```
 
