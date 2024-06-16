@@ -63,3 +63,11 @@ bzip2/*:build_executable=False
 catch2/3.*:no_posix_signals=True
 # Limit Catch2 console width to 50 characters (top screen)
 catch2/3.*:console_width=50
+
+3ds_sdl/*:alsa=False
+3ds_sdl/*:iconv=False
+# libunwind can't be built due to missing sys/mman.h
+3ds_sdl/*:libunwind=False
+3ds_sdl/*:opengl=False
+3ds_sdl/*:pulse=False
+3ds_sdl/*:wayland=False

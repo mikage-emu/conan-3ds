@@ -13,7 +13,7 @@ required_conan_version = ">=1.55.0"
 
 
 class SDLConan(ConanFile):
-    name = "sdl"
+    name = "3ds_sdl"
     description = "Access to audio, keyboard, mouse, joystick, and graphics hardware via OpenGL, Direct3D and Vulkan"
     topics = ("sdl2", "audio", "keyboard", "graphics", "opengl")
     url = "https://github.com/conan-io/conan-center-index"
@@ -141,6 +141,7 @@ class SDLConan(ConanFile):
         self.settings.rm_safe("compiler.cppstd")
 
     def requirements(self):
+        self.requires("libctru/[*]")
         if self.options.get_safe("iconv", False):
             self.requires("libiconv/1.17")
         if self.settings.os == "Linux":
