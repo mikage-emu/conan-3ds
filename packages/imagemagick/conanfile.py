@@ -77,7 +77,7 @@ class ImageMagicConan(ConanFile):
         "with_64bit_channel_mask_support": False,
 
         "with_bzlib": True,
-        "with_cairo": True,
+        "with_cairo": False,
         "with_djvu": False,
         "with_fftw": True,
         "with_fontconfig": True,
@@ -88,10 +88,10 @@ class ImageMagicConan(ConanFile):
         "with_jxl": False,  # FIXME: re-enable once migrated
         "with_lcms": True,
         "with_lzma": True,
-        "with_opencl": True,
+        "with_opencl": False,
         "with_openexr": True,
         "with_openjp2": True,
-        "with_openmp": True,
+        "with_openmp": False,
         "with_pango": False,  # FIXME: re-enable once migrated
         "with_png": True,
         "with_raw": True,
