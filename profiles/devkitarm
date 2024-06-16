@@ -40,6 +40,8 @@ user.devkitarm:version={{ dkaver }}
 devkitarm/{{ dkaver }}
 
 [options]
+bzip2/*:build_executable=False
+
 catch2/3.*:no_posix_signals=True
 # Limit Catch2 console width to 50 characters (top screen)
 catch2/3.*:console_width=50
