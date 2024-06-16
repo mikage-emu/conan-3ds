@@ -40,6 +40,24 @@ user.devkitarm:version={{ dkaver }}
 devkitarm/{{ dkaver }}
 
 [options]
+boost/*:without_atomic=True
+boost/*:without_container=True
+boost/*:without_context=True
+boost/*:without_contract=True
+boost/*:without_coroutine=True
+boost/*:without_fiber=True
+boost/*:without_filesystem=True
+boost/*:without_iostreams=True
+boost/*:without_json=True
+boost/*:without_locale=True
+boost/*:without_log=True
+boost/*:without_nowide=True
+# requires dlfcn.h
+boost/*:without_stacktrace=True
+boost/*:without_thread=True
+boost/*:without_type_erasure=True
+boost/*:without_wave=True
+
 bzip2/*:build_executable=False
 
 catch2/3.*:no_posix_signals=True
