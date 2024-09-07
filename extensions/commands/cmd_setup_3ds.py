@@ -35,7 +35,7 @@ def setup_3ds(conan_api: ConanAPI, parser, *args):
     ConanOutput().define_log_level("warning")
 
     with tempfile.TemporaryDirectory() as tmpfolder:
-        check_output_runner("git clone -b mikage \"%s\" \"%s\"" % ("git@github.com:mikage-emu/conan-3ds.git", tmpfolder)).strip()
+        check_output_runner("git clone -b mikage \"%s\" \"%s\"" % ("https://github.com/mikage-emu/conan-3ds.git", tmpfolder)).strip()
 
         # Export package recipes
         packages_folder = os.path.join(tmpfolder, "packages")
