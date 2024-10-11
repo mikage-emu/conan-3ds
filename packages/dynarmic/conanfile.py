@@ -55,6 +55,6 @@ class DynarmicConan(ConanFile):
         #self.cpp_info.libdirs = ["src/dynarmic"]
         #self.cpp_info.libs = tools.collect_libs(self) + dep_libs
         self.cpp_info.libs = ['dynarmic', 'mcl']
-        if self.settings.os != "Macos" and self.settings.os != "Android":
+        if self.settings.arch == 'x86_64':
             self.cpp_info.libs.append('Zydis');
         self.cpp_info.libdirs = ["externals/zydis", "externals/zydis/zycore", "externals/mcl/src", "externals/fmt", "lib"]
