@@ -2,7 +2,10 @@ from conan.api.conan_api import ConanAPI
 from conan.cli.command import conan_command
 from conan.api.output import ConanOutput
 
-from conans.errors import ConanException
+try:
+    from conan.errors import ConanException
+except ImportError:
+    from conans.errors import ConanException
 
 import argparse
 import subprocess
