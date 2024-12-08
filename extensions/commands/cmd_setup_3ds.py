@@ -3,7 +3,10 @@ from conan.cli.command import conan_command
 from conan.api.output import ConanOutput
 
 from conans.util.runners import check_output_runner
-from conans.errors import ConanException
+try:
+    from conan.errors import ConanException
+except ImportError:
+    from conans.errors import ConanException
 
 import tempfile
 

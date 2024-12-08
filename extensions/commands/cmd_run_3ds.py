@@ -3,7 +3,11 @@ from conan.api.model import ListPattern
 from conan.api.output import ConanOutput
 from conan.cli.command import conan_command
 
-from conans.errors import ConanException
+try:
+    from conan.errors import ConanException
+except ImportError:
+    from conans.errors import ConanException
+
 from conans.model.package_ref import PkgReference
 
 import argparse
