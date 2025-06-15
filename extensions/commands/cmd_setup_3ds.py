@@ -2,7 +2,10 @@ from conan.api.conan_api import ConanAPI
 from conan.cli.command import conan_command
 from conan.api.output import ConanOutput
 
-from conans.util.runners import check_output_runner
+try:
+    from conan.internal.util.runners import check_output_runner
+except ImportError:
+    from conans.util.runners import check_output_runner
 try:
     from conan.errors import ConanException
 except ImportError:
