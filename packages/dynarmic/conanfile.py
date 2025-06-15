@@ -14,7 +14,7 @@ class DynarmicConan(ConanFile):
     license = 'GNU General Public License v2.0'
 
     #requires = [ 'boost/1.69.0', 'fmt/7.1.3' ]
-    requires = [ 'boost/[>=1.57.0]', 'fmt/8.1.1' ]
+    requires = [ 'boost/[>=1.57.0]', 'fmt/11.2.0' ]
     generators = "CMakeDeps"
 
     def source(self):
