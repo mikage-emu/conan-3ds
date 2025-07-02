@@ -29,6 +29,7 @@ class DynarmicConan(ConanFile):
         cmake.cache_variables['DYNARMIC_TESTS'] = False
         cmake.cache_variables['DYNARMIC_WARNINGS_AS_ERRORS'] = False
         cmake.cache_variables['DYNARMIC_NO_BUNDLED_FMT'] = True
+        cmake.cache_variables['CMAKE_POLICY_VERSION_MINIMUM'] = "3.5"
         # TODO: Disable bundled fmt!
         # TODO: Only compile A32 frontend!
         cmake.generate()
