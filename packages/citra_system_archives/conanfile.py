@@ -1,5 +1,5 @@
 from conan import ConanFile, tools
-from conan.tools.files import chdir, copy, get, replace_in_file, save
+from conan.tools.files import chdir, copy, get, rename, replace_in_file, save
 from conan.tools.gnu import Autotools
 
 import os
@@ -34,9 +34,21 @@ class Conan(ConanFile):
                 self.run('./run.sh')
                 self.run("makerom -rsf ../info.rsf -o 00000000.app")
 
+        # Create additional font titles for CHN/KOR/TWN regions
+        with chdir(self, os.path.join(self.source_folder, 'shared_font')):
+            rename(self, "romfs/cbf_std.bcfnt.lz", "romfs/cbf_zh-Hans-CN.bcfnt.lz")
+            self.run("makerom -rsf ../info.rsf -o 00000000_chn.app")
+            rename(self, "romfs/cbf_zh-Hans-CN.bcfnt.lz", "romfs/cbf_ko-Hang-KR.bcfnt.lz")
+            self.run("makerom -rsf ../info.rsf -o 00000000_kor.app")
+            rename(self, "romfs/cbf_ko-Hang-KR.bcfnt.lz", "romfs/cbf_zh-Hant-TW.bcfnt.lz")
+            self.run("makerom -rsf ../info.rsf -o 00000000_twn.app")
+
     def package(self):
         copy(self, "00000000.app", src=os.path.join(self.source_folder, 'bad_word_list'), dst=os.path.join(self.package_folder, '000400db/00010302/content'))
         copy(self, "00000000.app", src=os.path.join(self.source_folder, 'country_list'), dst=os.path.join(self.package_folder, '0004009b/00010402/content'))
         copy(self, "00000000.app", src=os.path.join(self.source_folder, 'mii'), dst=os.path.join(self.package_folder, '0004009b/00010202/content'))
         copy(self, "00000000.app", src=os.path.join(self.source_folder, 'nver'), dst=os.path.join(self.package_folder, '000400db/00016102/content'))
         copy(self, "00000000.app", src=os.path.join(self.source_folder, 'shared_font'), dst=os.path.join(self.package_folder, '0004009b/00014002/content'))
+        copy(self, "00000000_chn.app", src=os.path.join(self.source_folder, 'shared_font'), dst=os.path.join(self.package_folder, '0004009b/00014102/content'))
+        copy(self, "00000000_kor.app", src=os.path.join(self.source_folder, 'shared_font'), dst=os.path.join(self.package_folder, '0004009b/00014202/content'))
+        copy(self, "00000000_twn.app", src=os.path.join(self.source_folder, 'shared_font'), dst=os.path.join(self.package_folder, '0004009b/00014302/content'))
